@@ -19,4 +19,11 @@
             $list = $this->shopRepository->shopList();
             return $list;
         }
+        public function find($id){
+            $shop = $this->shopRepository->find($id);
+            return $shop;
+        }
+        public function update($id, $ragione_sociale, $indirizzo, $aperto){
+            return $this->shopRepository->update($id, $ragione_sociale, $indirizzo, $aperto);
+        }
     }

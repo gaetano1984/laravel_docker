@@ -29,4 +29,20 @@
             $shops = $shopService->shopList();
             return \response()->json($shops);
         }
+        public function edit($id, ShopService $shopService){
+            $shop = $shopService->find($id);
+            return view('shop.edit', compact('shop'));
+        }
+        public function shopUpdate(Request $request, ShopService $shopService){
+            $this->validate($request, Shop::shopUpdate());
+
+            $id = $request->get('id');
+            $ragione_sociale = $request->get('ragione_sociale');
+            $indirizzo = $request->get('indirizzo');
+            $aperto = $request->get('aperto');
+
+            $shopService->update($id, $ragione_sociale, $indirizzo, $aperto);
+
+            return response()->json(['res' => 'ok']);
+        }
     }

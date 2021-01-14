@@ -10,21 +10,21 @@
                             {{Form::label('Ragione Sociale')}}
                         </td>
                         <td>
-                            {{Form::text('ragione_sociale', '', ['class' => 'form-control', 'placeholder' => 'Ragione Sociale'])}}
+                            {{Form::text('ragione_sociale', $shop['ragione_sociale'], ['id' => 'ragione_sociale', 'class' => 'form-control', 'placeholder' => 'Ragione Sociale'])}}
                         </td>
                         <td id="ragione_sociale_err"></td>
                     </tr>
                     <tr>
                         <td>{{Form::label('Indirizzo')}}</td>
                         <td>
-                            {{Form::text('indirizzo', '', ['class' => 'form-control', 'placeholder' => 'Indirizzo'])}}
+                            {{Form::text('indirizzo', $shop['indirizzo'], ['id' => 'indirizzo', 'class' => 'form-control', 'placeholder' => 'Indirizzo'])}}
                         </td>
                         <td id="indirizzo_err"></td>
                     </tr>
                     <tr>
                         <td>Aperto</td>
                         <td>
-                            {{Form::select('stato', ['0' => 'Chiuso', '1' => 'Aperto'], '', ['class' => 'form-control'])}}
+                            {{Form::select('stato', ['0' => 'Chiuso', '1' => 'Aperto'], '', ['id' => 'stato', 'class' => 'form-control'])}}
                         </td>
                         <td id="stato_err"></td>
                     </tr>
@@ -49,12 +49,12 @@
             indirizzo = $('#indirizzo').val();
             aperto = $('#stato').val();
             $.ajax({
-                url: "{{route('apiShopCreate')}}"
+                url: "{{route('apiShopUpdate')}}"
                 ,method:'post'
-                ,data: {ragione_sociale: ragione_sociale, indirizzo: indirizzo, stato: aperto}
+                ,data: {shop_id: {{$shop['id']}}, ragione_sociale: ragione_sociale, indirizzo: indirizzo, stato: aperto}
                 ,statusCode:{
                     200: function(){
-                        alert("Lo shop è stato creato correttamente");
+                        alert("Lo shop è stato aggiornato correttamente");
                     }
                     ,422: function(res, a, b){
                         $('#ragione_sociale_err').text(res.responseJSON.errors.ragione_sociale[0]);

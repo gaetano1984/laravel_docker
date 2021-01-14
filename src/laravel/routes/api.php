@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'shop'], function(){
     Route::post('create', 'App\Http\Controllers\ShopController@shopCreate')->name('apiShopCreate');
     Route::get('list', 'App\Http\Controllers\ShopController@shopList')->name('apiShopList');
+    Route::post('update', 'App\Http\Controllers\ShopController@shopUpdate')->name('apiShopUpdate');
 });

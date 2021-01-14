@@ -22,4 +22,17 @@
         public function shopList(){
             return $this->shop->get()->toArray();
         }
+        public function find($id){
+            $shop = $this->shop->find($id);
+            return $shop->toArray();
+        }
+        public function update($id, $ragione_sociale, $indirizzo, $aperto){
+            $shop = $this->shop->find($id);
+
+            $shop->ragione_sociale = $ragione_sociale;
+            $shop->indirizzo = $indirizzo;
+            $shop->aperto = $aperto;
+
+            $shop->save();
+        }
     }

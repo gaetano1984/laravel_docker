@@ -20,4 +20,12 @@ class Shop extends Model
             ,'stato' => 'required'
         ];
     }
+
+    static function shopUpdate(){
+        return [
+            'ragione_sociale' => 'required'
+            ,'indirizzo' => 'required'
+            ,'stato' => 'required'
+        ];
+    }
 }
