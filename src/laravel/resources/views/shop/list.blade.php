@@ -24,9 +24,7 @@
             $.ajax({
                 url: "{{route('apiShopList')}}"
                 ,success: function(res){
-                    console.log(res);
                     $(res).each(function(k, v){
-                        console.log("ci entro");
                         $('\
                             <tr>\
                                 <td>'+v.id+'</td>\
