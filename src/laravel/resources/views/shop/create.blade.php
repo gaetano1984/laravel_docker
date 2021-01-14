@@ -7,33 +7,30 @@
                 <tbody>
                     <tr>
                         <td>
-                            Ragione Sociale
+                            {{Form::label('Ragione Sociale')}}
                         </td>
                         <td>
-                            <input type="text" name="ragione_sociale" id="ragione_sociale" placeholder="Ragione Sociale">
+                            {{Form::text('ragione_sociale', '', ['class' => 'form-control', 'placeholder' => 'Ragione Sociale'])}}
                         </td>
                         <td id="ragione_sociale_err"></td>
                     </tr>
                     <tr>
-                        <td>Indirizzo</td>
+                        <td>{{Form::label('Indirizzo')}}</td>
                         <td>
-                            <input type="text" name="indirizzo" id="indirizzo" placeholder="Indirizzo">
+                            {{Form::text('indirizzo', '', ['class' => 'form-control', 'placeholder' => 'Indirizzo'])}}
                         </td>
                         <td id="indirizzo_err"></td>
                     </tr>
                     <tr>
                         <td>Aperto</td>
                         <td>
-                            <select name="stato" id="stato">
-                                <option value="1">Aperto</option>
-                                <option value="0">Chiuso</option>
-                            </select>
+                            {{Form::select('stato', ['0' => 'Chiuso', '1' => 'Aperto'], '', ['class' => 'form-control'])}}
                         </td>
                         <td id="stato_err"></td>
                     </tr>
                     <tr>
                         <td class="text-center" colspan=2>
-                            <input type="submit" id="btnsubmit" class="btn btn-simple btn-info" value="Crea SHOP">
+                            {{Form::button('Crea SHOP', ['class' => 'btn btn-info'])}}
                         </td>
                     </tr>
                 </tbody>
