@@ -5,6 +5,7 @@
     use Illuminate\Http\Request;
     use App\Services\ShopService;
     use App\Http\Requests\Api\Shop;
+    use App\Jobs\ExportShops;
 
     class ShopController extends Controller
     {
@@ -43,5 +44,9 @@
 
             $shopService->update($id, $ragione_sociale, $indirizzo, $aperto);
             return response()->json(['res' => 'ok']);
+        }
+        public function export(Request $request, ShopService $shopService){
+            $shop = $shopService->shopList();
+            ExportShops::dispatch($shop)->onQueue('shop_export');
         }
     }

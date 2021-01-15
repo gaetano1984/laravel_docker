@@ -22,4 +22,5 @@ Route::group(['prefix' => 'shop'], function(){
     Route::get('create', 'App\Http\Controllers\ShopController@create')->name('shopCreate');
     Route::get('list', 'App\Http\Controllers\ShopController@list')->name('shopList');
     Route::get('edit/{id}', 'App\Http\Controllers\ShopController@edit')->name('shopEdit');
+    Route::get('export', 'App\Http\Controllers\ShopController@export')->name('shopExport');
 });
