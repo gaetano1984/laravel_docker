@@ -29,10 +29,11 @@
         }
         public function export($shop){
             \Log::info("inizio l'export degli shop");
-            $csv = \storage_path('export/shops/export_shops_'.rand(1000,2000).'.csv');
+            $csv = \storage_path('export/shops/export_shops_'.date('YmdHis').'.csv');
 
             $fh = fopen($csv, 'w');
             foreach($shop as $s){
+                \Log::info(print_r($s, 1));
                 \fputcsv($fh, $s);
             }
             fclose($fh);

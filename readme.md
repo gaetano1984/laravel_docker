@@ -22,5 +22,5 @@ il Dockerfile invece contiene le istruzioni aggiuntive per la costruzione dei co
 ## Build
 
 - da terminale, spostarsi nel path del progetto
-- eseguire il comando docker-compose build . && docker-compose up -d
+- eseguire il comando docker-compose build && docker-compose up -d
 - la precedente istruzione permette di scaricare le immagini, costruire i 3 container dei servizi necessari, avviare i 3 servizi
