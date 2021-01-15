@@ -12,20 +12,4 @@ class Shop extends Model
     protected $table = 'shops';
 
     public $timestamps = false;
-
-    static function shopCreate(){
-        return [
-            'ragione_sociale' => 'required'
-            ,'indirizzo' => 'required'
-            ,'stato' => 'required'
-        ];
-    }
-
-    static function shopUpdate(){
-        return [
-            'ragione_sociale' => 'required'
-            ,'indirizzo' => 'required'
-            ,'stato' => 'required'
-        ];
-    }
 }
