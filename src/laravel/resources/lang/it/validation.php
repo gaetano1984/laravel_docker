@@ -8,5 +8,8 @@
             ,'indirizzo' => [
                 'required' => 'L\':attribute è obbligatorio'
             ]
+            ,'stato' => [
+                'required' => 'Lo :attribute è obbligatorio'
+            ]
         ]
     ];

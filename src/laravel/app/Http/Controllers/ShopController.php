@@ -4,7 +4,7 @@
 
     use Illuminate\Http\Request;
     use App\Services\ShopService;
-    use App\Models\Shop;
+    use App\Http\Requests\Api\Shop;
 
     class ShopController extends Controller
     {
