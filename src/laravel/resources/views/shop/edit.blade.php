@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <td class="text-center" colspan=2>
-                            {{Form::button('Crea SHOP', ['class' => 'btn btn-info', 'id' => 'btnsubmit'])}}
+                            {{Form::button('Aggiorna SHOP', ['class' => 'btn btn-info', 'id' => 'btnsubmit'])}}
                         </td>
                     </tr>
                 </tbody>

@@ -10,6 +10,7 @@
                         <th>Ragione Sociale</th>
                         <th>Indirizzo</th>
                         <th>Aperto</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody class="table_body"></tbody>
@@ -31,6 +32,10 @@
                                 <td>'+v.ragione_sociale+'</td>\
                                 <td>'+v.indirizzo+'</td>\
                                 <td>'+v.aperto+'</td>\
+                                <td align="right">\
+                                    <a class="btn btn-info" href="shop/edit/'+v.id+'">Edit</a>\
+                                    <a class="btn btn-danger" href="shop/delete/'+v.id+'">Delete</a>\
+                                </td>\
                             </tr>\
                         ').appendTo('.table_body');
                     });
