@@ -10,21 +10,21 @@
                             {{Form::label('Ragione Sociale')}}
                         </td>
                         <td>
-                            {{Form::text('ragione_sociale', '', ['class' => 'form-control', 'placeholder' => 'Ragione Sociale'])}}
+                            {{Form::text('ragione_sociale', '', ['id' => 'ragione_sociale', 'class' => 'form-control', 'placeholder' => 'Ragione Sociale'])}}
                         </td>
                         <td id="ragione_sociale_err"></td>
                     </tr>
                     <tr>
                         <td>{{Form::label('Indirizzo')}}</td>
                         <td>
-                            {{Form::text('indirizzo', '', ['class' => 'form-control', 'placeholder' => 'Indirizzo'])}}
+                            {{Form::text('indirizzo', '', ['id' => 'indirizzo', 'class' => 'form-control', 'placeholder' => 'Indirizzo'])}}
                         </td>
                         <td id="indirizzo_err"></td>
                     </tr>
                     <tr>
                         <td>Aperto</td>
                         <td>
-                            {{Form::select('stato', ['0' => 'Chiuso', '1' => 'Aperto'], '', ['class' => 'form-control'])}}
+                            {{Form::select('stato', ['0' => 'Chiuso', '1' => 'Aperto'], '', ['id' => 'stato', 'class' => 'form-control'])}}
                         </td>
                         <td id="stato_err"></td>
                     </tr>

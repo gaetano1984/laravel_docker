@@ -36,13 +36,12 @@
         public function shopUpdate(Request $request, ShopService $shopService){
             $this->validate($request, Shop::shopUpdate());
 
-            $id = $request->get('id');
+            $id = $request->get('shop_id');
             $ragione_sociale = $request->get('ragione_sociale');
             $indirizzo = $request->get('indirizzo');
-            $aperto = $request->get('aperto');
+            $aperto = $request->get('stato');
 
             $shopService->update($id, $ragione_sociale, $indirizzo, $aperto);
-
             return response()->json(['res' => 'ok']);
         }
     }
