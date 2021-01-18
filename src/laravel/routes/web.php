@@ -18,9 +18,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'shop'], function(){
-    Route::get('/', 'App\Http\Controllers\ShopController@list')->name('shoplist');
-    Route::get('create', 'App\Http\Controllers\ShopController@create')->name('shopCreate');
-    Route::get('list', 'App\Http\Controllers\ShopController@list')->name('shopList');
-    Route::get('edit/{id}', 'App\Http\Controllers\ShopController@edit')->name('shopEdit');
-    Route::get('export', 'App\Http\Controllers\ShopController@export')->name('shopExport');
+    Route::get('/', [App\Http\Controllers\ShopController::class, ''])->name('shoplist');
+    Route::get('create', [App\Http\Controllers\ShopController::class, 'create'])->name('shopCreate');
+    Route::get('list', [App\Http\Controllers\ShopController::class, 'list'])->name('shopList');
+    Route::get('edit/{id}', [App\Http\Controllers\ShopController::class, 'edit'])->name('shopEdit');
+    Route::get('export', [App\Http\Controllers\ShopController::class, 'export'])->name('shopExport');
 });
