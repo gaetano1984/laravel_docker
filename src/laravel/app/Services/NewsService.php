@@ -56,16 +56,21 @@
 			$fsources = NewsUser::where('id', $id_user)->get()->first()->favoriteSources()->get();
 			return $fsources;
 		}
-		public function paginateNews($id_user, $n){
+		public function paginateNews($id_user, $n, $giornale){
 			$favs = NewsUser::find($id_user)->favoriteSources()->get()->toArray();
-			$news = $this->filterNews($favs, $n);
+			$news = $this->filterNews($favs, $n, $giornale);
 			return $news;
 		}
-		public function filterNews($favs, $n){
+		public function filterNews($favs, $n, $giornale=null){
 			$f_arr = [];
-			foreach($favs as $f){
-				array_push($f_arr, $f['source']);
+			if($giornale!=null){
+				$f_arr = explode(',', $giornale);
 			}
+			else{
+				foreach($favs as $f){
+					array_push($f_arr, $f['source']);
+				}
+			}			
 			$news = News::whereIn('giornale', $f_arr)->orderBy('pubDate', 'desc')->paginate($n);
 			return $news;
 		}
