@@ -8,6 +8,7 @@
 	<body>
 		<div class="container">
 			@yield('container')		
-		</div>		
+		</div>	
+		@yield('extrascripts')
 	</body>
 </html>

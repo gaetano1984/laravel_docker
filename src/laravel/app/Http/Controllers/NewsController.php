@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\Models\News;
 use Illuminate\Http\Request;
+use App\Mail\SendNewsAttach;
 use App\Services\NewsService;
 use Illuminate\Support\Facades\Auth;
-use Mail;
-use App\Mail\SendNewsAttach;
 
 class NewsController extends Controller
 {
     //
-    public function index(NewsService $newsService){
+    public function index(Request $request, NewsService $newsService){
         $id_user = Auth::user()->id;
-    	$news = $newsService->paginateNews($id_user, 10);
+    	$news = $newsService->paginateNews($id_user, 10, $request->get('giornale'));
     	return view('news.index', compact('news'));
     }
     public function favorite(NewsService $newsService){
