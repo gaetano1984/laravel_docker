@@ -4,6 +4,19 @@
 
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="{{route('home')}}" class="navbar-brand">Home</a>
+            <div class="collapse navbar-collapse">  
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{{route('home')}}" class="nav-link">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('favorite')}}" class="nav-link">Favorite</a>
+                    </li>
+                </ul>    
+            </div>     
+        </nav>
         <div class="container">
 
             @yield('container')

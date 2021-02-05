@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        \App\Console\Commands\ShopExport::class
+        \App\Console\Commands\ShopExport::class,
+        \App\Console\Commands\UpdateNews::class
     ];
 
     /**
@@ -26,7 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('shop:export')->everyMinute();
+        //$schedule->command('shop:export')->everyMinute();
+        $schedule->command('news:update')->everyMinute();
+        $schedule->command('news:export')->daily();
     }
 
     /**
