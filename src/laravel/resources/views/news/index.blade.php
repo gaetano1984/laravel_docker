@@ -7,8 +7,13 @@
 				<th colspan=3>
 					<select name="giornale" id="giornale" class="form-control col-md-3">
 						<option value=""></option>
-						<option value="corriere">corriere</option>
-						<option value="repubblica">repubblica</option>
+						@foreach($sources as $source_temp)
+							@if($source_temp==$giornale)
+								<option value="{{$source_temp}}" selected>{{$source_temp}}</option>
+							@else
+								<option value="{{$source_temp}}">{{$source_temp}}</option>
+							@endif
+						@endforeach
 					</select>
 				</th>
 			</tr>
@@ -38,7 +43,15 @@
 @section('extrascripts')
 	<script type="text/javascript">
 		$('#giornale').on('change', function(){
-			//window.location = {{route('home')}}
+			url="{{urldecode($url)}}";
+			if(url.indexOf('giornale')>=0){
+				url=url.replace(/&amp;/, '&');
+				url=url.replace(/giornale=(.+?)$/, 'giornale='+$(this).val());
+			}
+			else{
+				url=url+'&giornale='+$(this).val();
+			}
+			window.location.replace(url);
 		});
 	</script>	
 @endsection
