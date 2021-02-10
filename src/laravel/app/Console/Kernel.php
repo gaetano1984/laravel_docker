@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         //$schedule->command('shop:export')->everyMinute();
         $schedule->command('news:update')->everyMinute();
         $schedule->command('news:export')->daily();
+        $schedule->command('news:removeDuplicate')->hourly();
     }
 
     /**

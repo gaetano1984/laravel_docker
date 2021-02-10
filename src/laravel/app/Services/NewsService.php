@@ -21,6 +21,16 @@
 				,'text' => ''
 			];*/
 		}
+		public function removeDuplicate(){
+			$id_news = DB::table('news')
+				->select( DB::raw('max(id_news)') )
+				->groupBy('guid')
+				->having( DB::raw('count(id_news)'), '>', '1' )
+				->get()->pluck('id_news')->toArray();			
+			DB::table('news')
+				->where('id_news', $id_news)
+				->delete();
+		}
 		public function sendViaMail(){
 			$m = new FavoriteSources();
 			$arr = [];
