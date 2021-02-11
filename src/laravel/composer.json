@@ -14,9 +14,11 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
+        "laravel/scout": "^8.6",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
-        "longman/telegram-bot": "^0.70.1"
+        "longman/telegram-bot": "^0.70.1",
+        "yab/laravel-scout-mysql-driver": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
