@@ -29,9 +29,9 @@
 				->select( DB::raw('max(id_news)') )
 				->groupBy('guid')
 				->having( DB::raw('count(id_news)'), '>', '1' )
-				->get()->pluck('id_news')->toArray();			
+				->get()->pluck(DB::raw('max(id_news)'))->toArray();			
 			DB::table('news')
-				->where('id_news', $id_news)
+				->whereIn('id_news', $id_news)
 				->delete();
 		}
 		public function sendViaMail(){
