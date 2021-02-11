@@ -32,7 +32,6 @@ return [
 
         'ftp' => [
             'driver' => 'ftp'
-            #,'host' => 'localhost'
             ,'host' => 'ftp'
             ,'username' => 'pippo'
             ,'password' => 'pippo'
