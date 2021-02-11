@@ -12,6 +12,9 @@
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Http;
+	use Illuminate\Support\Facades\File;
+	use Illuminate\FileSystem\FileSystem;
+	use Illuminate\Support\Facades\Storage;
 
 	class NewsService{
 		public $telegram_config;
@@ -141,10 +144,16 @@
 							$dompdf->render();
 
 							file_put_contents($path, $dompdf->output());
+							Storage::disk('ftp')->put(
+								'export_pdf/'.$giornale."/".$anno."/".$mese."/".$giorno.".pdf", 
+								$path
+							);	
 						}
 					}
 				}
 			}
+			$f = new FileSystem();
+			$f->cleanDirectory(storage_path('export_pdf'));
 		}
 		public function readNews($obj){
 			$news = News::select($obj['scope']);

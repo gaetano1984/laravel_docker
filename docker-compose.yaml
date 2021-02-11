@@ -4,6 +4,22 @@ networks:
   laravel:
 
 services:
+  sftp:
+    image: bogem/ftp
+    container_name: ftp
+    ports:
+      - "20:20"
+      - "21:21"
+      #- "47400-47470":"47400-47470"
+    environment:
+      - FTP_USER=pippo
+      - FTP_PASS=pippo
+      - PASV_ADDRESS=localhost
+    volumes:
+      - "./ftp:/var/upload"
+    networks: 
+      - laravel
+    
   nginx:
     image: nginx:stable-alpine
     container_name: webserver

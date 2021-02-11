@@ -30,6 +30,17 @@ return [
 
     'disks' => [
 
+        'ftp' => [
+            'driver' => 'ftp'
+            #,'host' => 'localhost'
+            ,'host' => 'ftp'
+            ,'username' => 'pippo'
+            ,'password' => 'pippo'
+            ,'port' => '21'
+            ,'passive' => FALSE
+            ,'root' => '/'
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
