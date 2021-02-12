@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('news:update')->everyMinute();
         $schedule->command('news:export')->daily();
         $schedule->command('news:removeDuplicate')->hourly();
-        $schedule->command('scout:import')->everyMinute();
+        $schedule->command('scout:import "App\Models\News"')->everyMinute();
     }
 
     /**
