@@ -14,6 +14,9 @@
                     <li class="nav-item">
                         <a href="{{route('favorite')}}" class="nav-link">Favorite</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('downloads')}}" class="nav-link">Downloads</a>
+                    </li>
                 </ul>    
             </div>     
         </nav>

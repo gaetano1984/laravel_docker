@@ -35,5 +35,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/', 'App\Http\Controllers\NewsController@index')->name('homeFiltered');
 		Route::get('favorite', 'App\Http\Controllers\NewsController@favorite')->name('favorite');
 		Route::post('favorite', 'App\Http\Controllers\NewsController@postFavorite')->name('postFavorite');
+        Route::get('downloads/{giornale?}/{anno?}/{mese?}/{giorno?}', 'App\Http\Controllers\NewsController@download')->name('downloads');
 	});
 });

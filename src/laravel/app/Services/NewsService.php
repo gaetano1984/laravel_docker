@@ -138,7 +138,7 @@
 							file_put_contents($path, $dompdf->output());
 							Storage::disk('ftp')->put(
 								'export_pdf/'.$giornale."/".$anno."/".$mese."/".$giorno.".pdf", 
-								$path
+								$dompdf->output()
 							);	
 						}
 					}
