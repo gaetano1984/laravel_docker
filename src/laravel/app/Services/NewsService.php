@@ -9,30 +9,29 @@
 	use App\Models\FavoriteSources;
 	/*use Longman\TelegramBot\Request;
 	use Longman\TelegramBot\Telegram;*/
+	use App\Repository\NewsRepository;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Http;
 	use Illuminate\Support\Facades\File;
 	use Illuminate\FileSystem\FileSystem;
 	use Illuminate\Support\Facades\Storage;
+	use App\Repository\FavoriteSourcesRepository;
 
 	class NewsService{
 		public $telegram_config;
-		public function __construct(){
+		public $newsRepository;
+		public $favoriteSourcesRepository;
+		public function __construct(NewsRepository $newsRepository, FavoriteSourcesRepository $favoriteSourcesRepository){
 			/*$this->telegram_config = [
 				'chat_id' => config('telegram.chat_id')
 				,'text' => ''
 			];*/
+			$this->newsRepository = $newsRepository;
+			$this->favoriteSourcesRepository = $favoriteSourcesRepository;
 		}
 		public function removeDuplicate(){
-			$id_news = DB::table('news')
-				->select( DB::raw('max(id_news)') )
-				->groupBy('guid')
-				->having( DB::raw('count(id_news)'), '>', '1' )
-				->get()->pluck(DB::raw('max(id_news)'))->toArray();			
-			DB::table('news')
-				->whereIn('id_news', $id_news)
-				->delete();
+			$this->newsRepository->removeDuplicate();
 		}
 		public function sendViaMail(){
 			$m = new FavoriteSources();
@@ -66,11 +65,11 @@
 		}
 		public function getFavorites(){
 			$id_user = Auth::User()->id;
-			$fsources = NewsUser::where('id', $id_user)->get()->first()->favoriteSources()->get();
+			$fsources = $this->favoriteSourcesRepository->getFavorites($id_user);
 			return $fsources;
 		}
 		public function paginateNews($id_user, $n, $giornale){
-			$favs = NewsUser::find($id_user)->favoriteSources()->get()->toArray();
+			$favs = $this->favoriteSourcesRepository->getFavorites($id_user)->toArray();
 			$news = $this->filterNews($favs, $n, $giornale);
 			return $news;
 		}
@@ -84,18 +83,11 @@
 					array_push($f_arr, $f['source']);
 				}
 			}			
-			$news = News::whereIn('giornale', $f_arr)->orderBy('pubDate', 'desc')->paginate($n);
+			$news = $this->newsRepository->filterNews($n, $f_arr);
 			return $news;
 		}
 		public function exportToPdf(){
-
-			$news = News::select([
-				'*', 
-				DB::raw('date_format(pubDate, \'%Y-%m-%d\') as data'),
-				DB::raw('date_format(pubDate, \'%Y\') as anno'),
-				DB::raw('date_format(pubDate, \'%m\') as mese'),
-				DB::raw('date_format(pubDate, \'%d\') as giorno'),
-			])->get()->toArray();
+			$news = $this->newsRepository->exportToPdf();
 
 			$arr = [];
 			foreach($news as $n){
@@ -156,17 +148,7 @@
 			$f->cleanDirectory(storage_path('export_pdf'));
 		}
 		public function readNews($obj){
-			$news = News::select($obj['scope']);
-			if($obj['filter']['category']!="" && $obj['filter']['category']!=null){
-				$news = $news->where('category', 'like', '%'.$obj['filter']['category'].'%');	
-			}
-			if($obj['filter']['giornale']!="" && $obj['filter']['giornale']!=null){
-				$news = $news->whereIn('giornale', $obj['filter']['giornale']);
-			}
-			if($obj['limit']!=null){
-				$news = $news->limit($obj['limit']);
-			}
-			$news = $news->orderBy('pubDate', 'desc')->get()->toArray();
+			$news = $this->newsRepository->readNwes($obj);
 			return $news;
 		}
 		public function updateNews($testata, $url){
@@ -176,19 +158,7 @@
 			$xml=simplexml_load_string($xml);
 			$tot=0;
 			foreach($xml->channel->item as $news){
-				$check = News::where(['guid' => $news->guid])->get();
-				if($check->count()==0){
-					$n = new News();
-					$n->title = strip_tags($news->title);
-					$n->pubDate = date('Y-m-d H:i:s', strtotime($news->pubDate));
-					$n->guid = $news->guid;
-					$n->description = trim(strip_tags($news->description));
-					$n->category = $news->category;
-					$n->giornale = $testata;
-					$n->save();
-					$tot++;
-					//$this->writeToTelegramChannel(\strip_tags($n->title), $n->guid);
-				}
+				$tot += $this->newsRepository->updateNews($news);
 			}
 			\Log::info("download news completato");
 			return $tot;
