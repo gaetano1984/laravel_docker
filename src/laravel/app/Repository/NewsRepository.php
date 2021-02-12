@@ -45,7 +45,7 @@
 			$news = $news->orderBy('pubDate', 'desc')->get()->toArray();
             return $news;
         }
-        public function updateNews($news){
+        public function updateNews($testata, $news){
             $saved=0;
             $check = News::where(['guid' => $news->guid])->get();
             if($check->count()==0){

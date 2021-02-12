@@ -158,7 +158,7 @@
 			$xml=simplexml_load_string($xml);
 			$tot=0;
 			foreach($xml->channel->item as $news){
-				$tot += $this->newsRepository->updateNews($news);
+				$tot += $this->newsRepository->updateNews($testata, $news);
 			}
 			\Log::info("download news completato");
 			return $tot;
