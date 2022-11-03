@@ -4,21 +4,21 @@ networks:
   laravel:
 
 services:
-  sftp:
-    image: bogem/ftp
-    container_name: ftp
-    ports:
-      - "20:20"
-      - "21:21"
-      #- "47400-47470":"47400-47470"
-    environment:
-      - FTP_USER=pippo
-      - FTP_PASS=pippo
-      - PASV_ADDRESS=localhost
-    volumes:
-      - "./ftp:/var/upload"
-    networks: 
-      - laravel
+  # sftp:
+  #   image: bogem/ftp
+  #   container_name: ftp
+  #   ports:
+  #     - "20:20"
+  #     - "21:21"
+  #     #- "47400-47470":"47400-47470"
+  #   environment:
+  #     - FTP_USER=pippo
+  #     - FTP_PASS=pippo
+  #     - PASV_ADDRESS=localhost
+  #   volumes:
+  #     - "./ftp:/var/upload"
+  #   networks: 
+  #     - laravel
     
   nginx:
     image: nginx:stable-alpine
@@ -26,40 +26,41 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - "./src/laravel:/var/www/html/laravel"
+      - "./src:/var/www/html"
       - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
     depends_on:
       - php
-      - mysql
+      # - mysql
     networks:
       - laravel
 
-  mysql:
-    image: mysql:5.7.22
-    container_name: mysql
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "4306:3306"
-    volumes:
-      - "./mysql:/var/lib/msql"
-    environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    networks:
-      - laravel
+  # mysql:
+  #   image: mysql:5.7.22
+  #   container_name: mysql
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "4306:3306"
+  #   volumes:
+  #     - "./mysql:/var/lib/msql"
+  #   environment:
+  #     MYSQL_DATABASE: homestead
+  #     MYSQL_USER: homestead
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   networks:
+  #     - laravel
 
   php:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: php
+    command: ['entrypoint_laravel']
     volumes:
-      - ./src:/var/www/html
+      - './src:/var/www/html'
     ports:
       - "9000:9000"
     networks:
